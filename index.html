@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#090b10">
+<title>ZENKO GAMES | العب الآن</title>
+<style>
+:root{--bg:#090b10;--panel:#11151e;--panel2:#171d28;--line:#252d3b;--text:#f4f6fb;--muted:#9ba6b8;--accent:#7c5cff;--accent2:#20d6a2}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(ellipse at 80% -10%,#222044 0,transparent 35%),var(--bg);color:var(--text);font-family:Tahoma,Arial,sans-serif}
+a{color:inherit;text-decoration:none}
+.container{width:min(1120px,92%);margin:auto}
+header{position:sticky;top:0;z-index:5;background:#090b10eF;backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav{height:72px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{font-size:22px;font-weight:900;letter-spacing:1px;direction:ltr}
+.brand span{color:var(--accent)}
+nav{display:flex;gap:22px;color:var(--muted);font-size:14px}
+nav a:hover{color:white}
+.hero{padding:76px 0 52px;display:grid;grid-template-columns:1.1fr .9fr;gap:38px;align-items:center}
+.tag{display:inline-flex;align-items:center;gap:8px;border:1px solid #3c326e;background:#211b3d;color:#c9bdff;padding:8px 12px;border-radius:30px;font-size:12px}
+.dot{width:7px;height:7px;background:var(--accent2);border-radius:50%;box-shadow:0 0 12px var(--accent2)}
+h1{font-size:clamp(38px,6vw,68px);line-height:1.12;margin:20px 0 14px;direction:ltr;text-align:right}
+h1 span{color:var(--accent)}
+.hero p{color:var(--muted);font-size:17px;line-height:1.9;max-width:520px}
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:25px}
+.btn{border:1px solid var(--line);background:var(--panel2);color:white;padding:13px 20px;border-radius:12px;font-weight:700;cursor:pointer;font-size:14px}
+.btn.primary{background:linear-gradient(135deg,#7657ff,#5b43d6);border:0;box-shadow:0 8px 28px #7657ff40}
+.btn:hover{transform:translateY(-1px);filter:brightness(1.12)}
+.hero-art{min-height:260px;border:1px solid #332c56;border-radius:24px;background:linear-gradient(145deg,#17142c,#101722 65%,#102c2b);display:grid;place-items:center;position:relative;overflow:hidden}
+.hero-art:before,.hero-art:after{content:"";position:absolute;border:1px solid #ffffff12;border-radius:50%;width:280px;height:280px}
+.hero-art:after{width:390px;height:390px}
+.pixel{font-size:100px;filter:drop-shadow(0 15px 25px #0008);z-index:1}
+.art-caption{position:absolute;bottom:18px;left:20px;color:#b7b1d7;font-size:12px;direction:ltr}
+.section-head{display:flex;justify-content:space-between;align-items:end;margin:28px 0 18px}
+.section-head h2{font-size:25px;margin:0}
+.section-head p{margin:7px 0 0;color:var(--muted);font-size:13px}
+.games{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding-bottom:70px}
+.card{background:linear-gradient(160deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.thumb{height:155px;display:grid;place-items:center;background:radial-gradient(circle at center,#252044,#11151e 70%);font-size:66px}
+.card-body{padding:17px}
+.card h3{margin:0 0 8px;font-size:17px}
+.card p{margin:0 0 15px;color:var(--muted);font-size:13px;line-height:1.7}
+.card .btn{width:100%}
+.game-section{padding:12px 0 70px;scroll-margin-top:90px}
+.game-panel{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:18px}
+.game-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
+.game-top h2{margin:0;font-size:22px}
+.status{color:var(--accent2);font-size:12px}
+canvas{width:100%;height:auto;display:block;background:#fff;border-radius:12px;touch-action: manipulation}
+.controls{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-top:12px;color:var(--muted);font-size:13px}
+.touch-controls{display:flex;gap:8px}
+.touch-controls button{min-width:78px}
+footer{border-top:1px solid var(--line);padding:25px 0;color:var(--muted);font-size:12px;text-align:center}
+@media(max-width:760px){.hero{grid-template-columns:1fr;padding-top:48px}.hero-art{min-height:190px}.pixel{font-size:76px}.games{grid-template-columns:1fr}.nav{height:62px}nav{gap:12px;font-size:12px}.brand{font-size:18px}}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/brython@3.12.3/brython.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/brython@3.12.3/brython_stdlib.js"></script>
+</head>
+<body onload="brython()">
+<header>
+ <div class="container nav">
+  <a class="brand" href="#"><span>ZENKO</span> GAMES</a>
+  <nav><a href="#home">الرئيسية</a><a href="#games">الألعاب</a><a href="#about">حول الموقع</a></nav>
+ </div>
+</header>
+<main class="container">
+ <section class="hero" id="home">
+  <div>
+   <div class="tag"><i class="dot"></i> منصتك للألعاب بدأت الآن</div>
+   <h1>PLAY. <span>HAVE FUN.</span></h1>
+   <p>مرحباً بك في ZENKO GAMES — موقعك الخاص للألعاب الخفيفة. اختر لعبة وابدأ اللعب مباشرة من المتصفح.</p>
+   <div class="actions"><a class="btn primary" href="#games">اكتشف الألعاب</a><a class="btn" href="#about">عن الموقع</a></div>
+  </div>
+  <div class="hero-art"><div class="pixel">🎮</div><div class="art-caption">YOUR GAME SPACE</div></div>
+ </section>
+
+ <section id="games">
+  <div class="section-head"><div><h2>مكتبة الألعاب</h2><p>أول لعبة في منصتك جاهزة للتجربة</p></div></div>
+  <div class="games">
+   <article class="card">
+    <div class="thumb">🦖</div>
+    <div class="card-body"><h3>Chrome Dino</h3><p>اقفز فوق الصبار وتجنب الطيور واجمع أعلى نتيجة.</p><a class="btn primary" href="#dino">العب الآن</a></div>
+   </article>
+   <article class="card">
+    <div class="thumb">🎯</div>
+    <div class="card-body"><h3>قريباً</h3><p>يمكنك إضافة ألعاب جديدة إلى مكتبتك لاحقاً.</p><button class="btn" disabled>قريباً</button></div>
+   </article>
+   <article class="card">
+    <div class="thumb">🕹️</div>
+    <div class="card-body"><h3>قريباً</h3><p>هذه المساحة مخصصة للعبة القادمة على ZENKO GAMES.</p><button class="btn" disabled>قريباً</button></div>
+   </article>
+  </div>
+ </section>
+
+ <section class="game-section" id="dino">
+  <div class="game-panel">
+   <div class="game-top"><h2>🦖 Chrome Dino</h2><span class="status">● تعمل داخل الصفحة</span></div>
+   <canvas id="game" width="900" height="280"></canvas>
+   <div class="controls">
+    <span>Space / ↑ للقفز · ↓ للانحناء · Enter لإعادة اللعب</span>
+    <div class="touch-controls"><button class="btn" id="duckBtn">انحناء ↓</button><button class="btn primary" id="jumpBtn">اقفز ↑</button><button class="btn" id="restart">إعادة</button></div>
+   </div>
+  </div>
+ </section>
+ <section id="about" style="padding:0 0 55px;color:var(--muted);line-height:1.9">
+  <h2 style="color:var(--text)">عن ZENKO GAMES</h2>
+  <p>هذا الإصدار الأول من موقعك. يمكنك تعديل الاسم والألوان وإضافة ألعاب HTML أخرى لاحقاً. منطق لعبة الديناصور مكتوب بلغة Python باستخدام Brython، بينما واجهة الموقع مبنية بـ HTML وCSS.</p>
+ </section>
+</main>
+<footer><div class="container">© 2026 ZENKO GAMES · صُنع بشغف للألعاب</div></footer>
+
+<script type="text/python">
+from browser import document, timer
+import random, math
+
+canvas=document["game"]
+ctx=canvas.getContext("2d")
+W,H=900,280
+GROUND=218
+dino={"x":70,"y":GROUND-48,"vy":0,"duck":False}
+obstacles=[]
+clouds=[{"x":random.randint(0,W),"y":random.randint(35,100)} for _ in range(5)]
+marks=[{"x":i*55,"y":random.randint(0,5)} for i in range(20)]
+score=0
+best=0
+speed=6
+frame=0
+spawn=0
+game_over=False
+started=False
+
+def rect(x,y,w,h,color="#535353"):
+    ctx.fillStyle=color
+    ctx.fillRect(x,y,w,h)
+
+def label(s,x,y,size=18,color="#535353",align="left"):
+    ctx.fillStyle=color
+    ctx.font=f"bold {size}px Arial"
+    ctx.textAlign=align
+    ctx.fillText(s,x,y)
+
+def draw_dino():
+    x,y=dino["x"],dino["y"]
+    c="#535353"
+    if dino["duck"]:
+        rect(x,y+17,48,25,c); rect(x+35,y+7,19,20,c)
+        rect(x+45,y+12,12,5,c); rect(x+7,y+35,13,7,c)
+        rect(x+34,y+35,13,7,c); rect(x+46,y+10,3,3,"white")
+    else:
+        rect(x+8,y+15,27,28,c); rect(x+23,y,24,23,c)
+        rect(x+42,y+16,9,5,c); rect(x+38,y+5,4,4,"white")
+        rect(x,y+26,12,7,c); rect(x+5,y+20,7,9,c)
+        if (frame//8)%2==0:
+            rect(x+12,y+39,8,10,c); rect(x+29,y+39,8,5,c)
+        else:
+            rect(x+12,y+39,8,5,c); rect(x+29,y+39,8,10,c)
+
+def cactus(x,y,scale=1):
+    c="#535353"
+    rect(x+8*scale,y,10*scale,42*scale,c)
+    rect(x,y+15*scale,9*scale,7*scale,c)
+    rect(x,y+15*scale,5*scale,17*scale,c)
+    rect(x+17*scale,y+25*scale,13*scale,6*scale,c)
+    rect(x+25*scale,y+16*scale,6*scale,15*scale,c)
+
+def bird(x,y):
+    rect(x+8,y+7,25,8); rect(x+28,y+3,9,8); rect(x+35,y+7,8,4)
+    ctx.beginPath()
+    if (frame//8)%2==0:
+        ctx.moveTo(x+14,y+8); ctx.lineTo(x+3,y-5); ctx.lineTo(x+22,y+5)
+    else:
+        ctx.moveTo(x+14,y+9); ctx.lineTo(x+3,y+20); ctx.lineTo(x+22,y+10)
+    ctx.fill()
+
+def reset():
+    global obstacles,score,speed,frame,spawn,game_over,started
+    dino.update({"y":GROUND-48,"vy":0,"duck":False})
+    obstacles=[]; score=0; speed=6; frame=0; spawn=0
+    game_over=False; started=True
+
+def jump():
+    if game_over or not started:
+        reset()
+    elif dino["y"]>=GROUND-48.5:
+        dino["vy"]=-15
+
+def add_obstacle():
+    kind=random.choice(["cactus","cactus","big","bird"])
+    if kind=="bird":
+        obstacles.append({"type":"bird","x":W+5,"y":random.choice([GROUND-90,GROUND-65]),"w":43,"h":25})
+    elif kind=="big":
+        obstacles.append({"type":"big","x":W+5,"y":GROUND-48,"w":55,"h":48})
+    else:
+        obstacles.append({"type":"cactus","x":W+5,"y":GROUND-42,"w":31,"h":42})
+
+def hit(a,b):
+    return a[0]<b[0]+b[2] and a[0]+a[2]>b[0] and a[1]<b[1]+b[3] and a[1]+a[3]>b[1]
+
+def update():
+    global score,best,speed,frame,spawn,game_over
+    if not started or game_over: return
+    frame+=1; score+=0.15; speed=min(14,6+score/500)
+    dino["vy"]+=0.85; dino["y"]+=dino["vy"]
+    if dino["y"]>GROUND-48: dino["y"]=GROUND-48; dino["vy"]=0
+    spawn+=1
+    if spawn>random.randint(65,105): add_obstacle(); spawn=0
+    for o in obstacles: o["x"]-=speed
+    obstacles[:]=[o for o in obstacles if o["x"]>-100]
+    for c in clouds:
+        c["x"]-=speed*.35
+        if c["x"]<-40: c["x"]=W+random.randint(20,150); c["y"]=random.randint(35,100)
+    for m in marks:
+        m["x"]-=speed
+        if m["x"]<-20: m["x"]=W+random.randint(0,50)
+    p=(dino["x"],dino["y"]+17,55,25) if dino["duck"] else (dino["x"]+7,dino["y"]+5,38,42)
+    for o in obstacles:
+        b=(o["x"]+5,o["y"]+5,35,17) if o["type"]=="bird" else (o["x"]+3,o["y"]+3,o["w"]-6,o["h"]-3)
+        if hit(p,b):
+            game_over=True; best=max(best,int(score)); break
+
+def draw():
+    ctx.clearRect(0,0,W,H)
+    ctx.fillStyle="white"; ctx.fillRect(0,0,W,H)
+    for c in clouds:
+        ctx.fillStyle="#bdbdbd"; ctx.beginPath()
+        ctx.arc(c["x"],c["y"],7,0,math.pi*2); ctx.arc(c["x"]+10,c["y"]-4,9,0,math.pi*2)
+        ctx.arc(c["x"]+20,c["y"],7,0,math.pi*2); ctx.fill()
+    rect(0,GROUND,W,2)
+    for m in marks: rect(m["x"],GROUND+m["y"],12,2,"#aaa")
+    for o in obstacles:
+        if o["type"]=="bird": bird(o["x"],o["y"])
+        elif o["type"]=="big": cactus(o["x"],o["y"],1.2)
+        else: cactus(o["x"],o["y"])
+    draw_dino()
+    label(f"{int(score):05d}",W-25,28,18,"#535353","right")
+    label(f"HI {best:05d}",W-135,28,16,"#999","right")
+    if not started: label("PRESS SPACE TO START",W/2,145,25,"#535353","center")
+    if game_over:
+        label("GAME OVER",W/2,130,30,"#535353","center")
+        label("Press SPACE or ENTER to restart",W/2,160,16,"#999","center")
+
+def tick():
+    update(); draw()
+
+def keydown(ev):
+    k=ev.key
+    if k in (" ","ArrowUp","ArrowDown","Enter"): ev.preventDefault()
+    if k in (" ","ArrowUp","w","W"): jump()
+    elif k in ("ArrowDown","s","S"): dino["duck"]=True
+    elif k=="Enter" and game_over: reset()
+
+def keyup(ev):
+    if ev.key in ("ArrowDown","s","S"): dino["duck"]=False
+
+document.bind("keydown",keydown)
+document.bind("keyup",keyup)
+document["restart"].bind("click",lambda ev: reset())
+document["jumpBtn"].bind("click",lambda ev: jump())
+document["duckBtn"].bind("mousedown",lambda ev: dino.update({"duck":True}))
+document["duckBtn"].bind("mouseup",lambda ev: dino.update({"duck":False}))
+document["duckBtn"].bind("mouseleave",lambda ev: dino.update({"duck":False}))
+canvas.bind("touchstart",lambda ev: (ev.preventDefault(),jump()))
+draw()
+timer.set_interval(tick,16)
+</script>
+</body>
+</html>
